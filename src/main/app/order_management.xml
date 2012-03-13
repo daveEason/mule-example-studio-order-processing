@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<mule xmlns="http://www.mulesoft.org/schema/mule/core" xmlns:http="http://www.mulesoft.org/schema/mule/http" xmlns:cxf="http://www.mulesoft.org/schema/mule/cxf" xmlns:salesforce="http://www.mulesoft.org/schema/mule/sfdc" xmlns:doc="http://www.mulesoft.org/schema/mule/documentation" xmlns:spring="http://www.springframework.org/schema/beans" xmlns:core="http://www.mulesoft.org/schema/mule/core" xmlns:tcp="http://www.mulesoft.org/schema/mule/tcp" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="
+http://www.mulesoft.org/schema/mule/http http://www.mulesoft.org/schema/mule/http/current/mule-http.xsd 
+http://www.mulesoft.org/schema/mule/cxf http://www.mulesoft.org/schema/mule/cxf/current/mule-cxf.xsd 
+http://www.mulesoft.org/schema/mule/sfdc http://www.mulesoft.org/schema/mule/sfdc/4.0/mule-sfdc.xsd 
+http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-3.0.xsd 
+http://www.mulesoft.org/schema/mule/core http://www.mulesoft.org/schema/mule/core/current/mule.xsd 
+http://www.mulesoft.org/schema/mule/tcp http://www.mulesoft.org/schema/mule/tcp/3.1/mule-tcp.xsd ">
+    <salesforce:config name="sfconfig" username="david.eason@mulesource.com" password="Dre01man" securityToken="cCp7On1nkkctoKRyZhiYhYrjc" proxyPort="80" doc:name="Salesforce"/>
+    <flow name="order_management" doc:name="order_management">
+        <http:inbound-endpoint exchange-pattern="request-response" host="localhost" port="${http.port}" path="orders" doc:name="HTTP" doc:description="Process HTTP request for web service."/>
+        <cxf:jaxws-service serviceClass="org.ordermgmt.ProcessOrderImpl" doc:name="SOAP" doc:description="Uses CXF to create a JAX-WS web service for processing orders."/>
+        <component class="org.ordermgmt.ProcessOrderImpl" doc:name="Summary" doc:description="Creates a summary of the order contents."/>
+        <choice doc:name="Choice">
+            <when expression="totalListPrice &gt; 3000" evaluator="ognl">
+                <processor-chain>
+                    <component class="org.ordermgmt.ThirtyPercentDiscount" doc:name="30% Discount" doc:description="Use a 30% discount."/>
+                </processor-chain>
+            </when>
+            <when expression="totalListPrice &gt; 500" evaluator="ognl">
+                <processor-chain>
+                    <component class="org.ordermgmt.TwentyPercentDiscount" doc:name="20% Discount" doc:description="Use a 20% discount."/>
+                </processor-chain>
+            </when>
+            <when expression="totalListPrice &lt; 500" evaluator="ognl">
+                <processor-chain>
+                    <component class="org.ordermgmt.TenPercentDiscount" doc:name="10% Discount" doc:description="Use a 10% discount."/>
+                </processor-chain>
+            </when>
+        </choice>
+    </flow>
+</mule>

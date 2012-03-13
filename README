@@ -1,0 +1,17 @@
+## mule-example-studio-order-processing
+
+This is a simple Mule Studio application for demonstrating SOAP WebServices, Java Components, Content based routing capabilities of Mule ESB.
+
+Author: David Eason
+
+Please refer to Mulesoft.com for more details.
+
+To install and test this application please complete the following steps:
+
+- Clone from git to a local directory,
+
+- Import to Mule Studio "File > Import > Mule > Mule Studio Project from External Location"
+
+- Deploy properties - Ensure that the file "mule-app.properties" has a property set for 'http.port' (i.e. http.port=1081), this is required when running this application otherwise you will encounter an error.
+
+- A SoapUI test project that can be used when testing this application named "OrderProcessingApplicationTestProject-soapui-project.xml" can be found in /src/test/resources.

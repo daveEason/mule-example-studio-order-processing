@@ -1,0 +1,313 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<con:soapui-project name="OrderProcessingApplicationTestProject" soapui-version="3.6.1" abortOnError="false" runType="SEQUENTIAL" resourceRoot="" xmlns:con="http://eviware.com/soapui/config"><con:settings/><con:interface xsi:type="con:WsdlInterface" wsaVersion="NONE" name="ProcessOrderSoapBinding" type="wsdl" bindingName="{http://orderprocessing.demo.mulesoft.com/}ProcessOrderSoapBinding" soapVersion="1_1" anonymous="optional" definition="http://localhost:1081/orders?wsdl" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><con:settings/><con:definitionCache type="TEXT" rootPart="http://localhost:1081/orders?wsdl"><con:part><con:url>http://localhost:1081/orders?wsdl</con:url><con:content><![CDATA[<wsdl:definitions name="ProcessOrder" targetNamespace="http://orderprocessing.demo.mulesoft.com/" xmlns:ns1="http://schemas.xmlsoap.org/soap/http" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:tns="http://orderprocessing.demo.mulesoft.com/" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+  <wsdl:types>
+    <xs:schema elementFormDefault="unqualified" targetNamespace="http://orderprocessing.demo.mulesoft.com/" version="1.0" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+      <xs:element name="order" type="tns:order"/>
+      <xs:element name="orderSummary" type="tns:orderSummary"/>
+      <xs:element name="processOrder" type="tns:processOrder"/>
+      <xs:element name="processOrderResponse" type="tns:processOrderResponse"/>
+      <xs:complexType name="processOrder">
+        <xs:sequence>
+          <xs:element minOccurs="0" name="order" type="tns:order"/>
+        </xs:sequence>
+      </xs:complexType>
+      <xs:complexType name="order">
+        <xs:sequence>
+          <xs:element minOccurs="0" name="orderId" type="xs:string"/>
+          <xs:element minOccurs="0" name="customer" type="tns:orderPerson"/>
+          <xs:element maxOccurs="unbounded" minOccurs="0" name="item" type="tns:orderItem"/>
+        </xs:sequence>
+      </xs:complexType>
+      <xs:complexType name="orderPerson">
+        <xs:sequence>
+          <xs:element minOccurs="0" name="city" type="xs:string"/>
+          <xs:element minOccurs="0" name="firstName" type="xs:string"/>
+          <xs:element minOccurs="0" name="lastName" type="xs:string"/>
+          <xs:element minOccurs="0" name="state" type="xs:string"/>
+        </xs:sequence>
+      </xs:complexType>
+      <xs:complexType name="orderItem">
+        <xs:sequence>
+          <xs:element name="listPrice" type="xs:float"/>
+          <xs:element minOccurs="0" name="name" type="xs:string"/>
+          <xs:element minOccurs="0" name="productId" type="xs:string"/>
+          <xs:element name="quantity" type="xs:int"/>
+        </xs:sequence>
+      </xs:complexType>
+      <xs:complexType name="processOrderResponse">
+        <xs:sequence>
+          <xs:element minOccurs="0" name="summary" type="tns:orderSummary"/>
+        </xs:sequence>
+      </xs:complexType>
+      <xs:complexType name="orderSummary">
+        <xs:sequence>
+          <xs:element name="discountPercentage" type="xs:float"/>
+          <xs:element name="itemCount" type="xs:int"/>
+          <xs:element minOccurs="0" name="orderId" type="xs:string"/>
+          <xs:element name="totalDiscountedPrice" type="xs:float"/>
+          <xs:element name="totalListPrice" type="xs:float"/>
+        </xs:sequence>
+      </xs:complexType>
+    </xs:schema>
+  </wsdl:types>
+  <wsdl:message name="processOrderResponse">
+    <wsdl:part element="tns:processOrderResponse" name="parameters"></wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="processOrder">
+    <wsdl:part element="tns:processOrder" name="parameters"></wsdl:part>
+  </wsdl:message>
+  <wsdl:portType name="IProcessOrder">
+    <wsdl:operation name="processOrder">
+      <wsdl:input message="tns:processOrder" name="processOrder"></wsdl:input>
+      <wsdl:output message="tns:processOrderResponse" name="processOrderResponse"></wsdl:output>
+    </wsdl:operation>
+  </wsdl:portType>
+  <wsdl:binding name="ProcessOrderSoapBinding" type="tns:IProcessOrder">
+    <soap:binding style="document" transport="http://schemas.xmlsoap.org/soap/http"/>
+    <wsdl:operation name="processOrder">
+      <soap:operation soapAction="" style="document"/>
+      <wsdl:input name="processOrder">
+        <soap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output name="processOrderResponse">
+        <soap:body use="literal"/>
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:service name="ProcessOrder">
+    <wsdl:port binding="tns:ProcessOrderSoapBinding" name="ProcessOrderImplPort">
+      <soap:address location="http://localhost:1081/orders"/>
+    </wsdl:port>
+  </wsdl:service>
+</wsdl:definitions>]]></con:content><con:type>http://schemas.xmlsoap.org/wsdl/</con:type></con:part></con:definitionCache><con:endpoints><con:endpoint>http://localhost:1081/orders</con:endpoint></con:endpoints><con:operation isOneWay="false" action="" name="processOrder" bindingOperationName="processOrder" type="Request-Response" outputName="processOrderResponse" inputName="processOrder" receivesAttachments="false" sendsAttachments="false" anonymous="optional"><con:settings/><con:call name="Request 1"><con:settings><con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting></con:settings><con:encoding>UTF-8</con:encoding><con:endpoint>http://localhost:1081/orders</con:endpoint><con:request><![CDATA[<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:ord="http://orderprocessing.demo.mulesoft.com/">
+   <soapenv:Header/>
+   <soapenv:Body>
+      <ord:processOrder>
+         <order>
+            <orderId>0002018</orderId>
+            <customer>
+               <city>St Louis</city>
+               <firstName>Martha</firstName>
+               <lastName>Watson</lastName>
+               <state>IL</state>
+            </customer>
+            <item>
+               <listPrice>80</listPrice>
+               <name>Sony USB Wireless Adaptor</name>
+               <productId>SONY-USB-WA-0023</productId>
+               <quantity>3</quantity>
+            </item>
+         </order>
+      </ord:processOrder>
+   </soapenv:Body>
+</soapenv:Envelope>]]></con:request><con:jmsConfig JMSDeliveryMode="PERSISTENT"/><con:jmsPropertyConfig/><con:wsaConfig mustUnderstand="NONE" version="200508" action="http://orderprocessing.demo.mulesoft.com/IProcessOrder/processOrder"/><con:wsrmConfig version="1.2"/></con:call></con:operation></con:interface><con:testSuite name="ProcessOrderSoapBinding TestSuite"><con:settings/><con:runType>SEQUENTIAL</con:runType><con:testCase failOnError="true" failTestCaseOnErrors="true" keepSession="false" maxResults="0" name="processOrder TestCase" searchProperties="true" id="38ae4f7f-a6b5-4690-84d8-2ca90596ad37"><con:settings/><con:testStep type="request" name="processOrder1"><con:settings/><con:config xsi:type="con:RequestStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><con:interface>ProcessOrderSoapBinding</con:interface><con:operation>processOrder</con:operation><con:request name="processOrder1"><con:settings><con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting></con:settings><con:encoding>UTF-8</con:encoding><con:endpoint>http://localhost:1081/orders</con:endpoint><con:request><![CDATA[<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:ord="http://orderprocessing.demo.mulesoft.com/">
+   <soapenv:Header/>
+   <soapenv:Body>
+      <ord:processOrder>
+         <order>
+            <orderId>0002020</orderId>
+            <customer>
+               <city>St Louis</city>
+               <firstName>Peter</firstName>
+               <lastName>Petersen</lastName>
+               <state>IL</state>
+            </customer>
+            <item>
+               <listPrice>80</listPrice>
+               <name>Sony USB Wireless Adaptor</name>
+               <productId>SONY-USB-WA-0023</productId>
+               <quantity>3</quantity>
+            </item>
+         </order>
+      </ord:processOrder>
+   </soapenv:Body>
+</soapenv:Envelope>]]></con:request><con:assertion type="SOAP Response"/><con:jmsConfig JMSDeliveryMode="PERSISTENT"/><con:jmsPropertyConfig/><con:wsaConfig mustUnderstand="NONE" version="200508"/><con:wsrmConfig version="1.2"/></con:request></con:config></con:testStep><con:testStep type="request" name="processOrder2"><con:settings/><con:config xsi:type="con:RequestStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><con:interface>ProcessOrderSoapBinding</con:interface><con:operation>processOrder</con:operation><con:request name="processOrder2"><con:settings><con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting></con:settings><con:encoding>UTF-8</con:encoding><con:endpoint>http://localhost:1081/orders</con:endpoint><con:request><![CDATA[<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:ord="http://orderprocessing.demo.mulesoft.com/">
+   <soapenv:Header/>
+   <soapenv:Body>
+      <ord:processOrder>
+         <order>
+            <orderId>0002021</orderId>
+            <customer>
+               <city>St Louis</city>
+               <firstName>Micheal</firstName>
+               <lastName>Khalolo</lastName>
+               <state>IL</state>
+            </customer>
+            <item>
+               <listPrice>80</listPrice>
+               <name>Sony USB Wireless Adaptor</name>
+               <productId>SONY-USB-WA-0023</productId>
+               <quantity>3</quantity>
+            </item>
+         </order>
+      </ord:processOrder>
+   </soapenv:Body>
+</soapenv:Envelope>]]></con:request><con:assertion type="SOAP Response"/><con:jmsConfig JMSDeliveryMode="PERSISTENT"/><con:jmsPropertyConfig/><con:wsaConfig mustUnderstand="NONE" version="200508"/><con:wsrmConfig version="1.2"/></con:request></con:config></con:testStep><con:testStep type="request" name="processOrder3"><con:settings/><con:config xsi:type="con:RequestStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><con:interface>ProcessOrderSoapBinding</con:interface><con:operation>processOrder</con:operation><con:request name="processOrder3"><con:settings><con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting></con:settings><con:encoding>UTF-8</con:encoding><con:endpoint>http://localhost:1081/orders</con:endpoint><con:request><![CDATA[<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:ord="http://orderprocessing.demo.mulesoft.com/">
+   <soapenv:Header/>
+   <soapenv:Body>
+      <ord:processOrder>
+         <order>
+            <orderId>0002022</orderId>
+            <customer>
+               <city>St Louis</city>
+               <firstName>Greg</firstName>
+               <lastName>Purpura</lastName>
+               <state>IL</state>
+            </customer>
+            <item>
+               <listPrice>80</listPrice>
+               <name>Sony USB Wireless Adaptor</name>
+               <productId>SONY-USB-WA-0023</productId>
+               <quantity>3</quantity>
+            </item>
+         </order>
+      </ord:processOrder>
+   </soapenv:Body>
+</soapenv:Envelope>]]></con:request><con:assertion type="SOAP Response"/><con:jmsConfig JMSDeliveryMode="PERSISTENT"/><con:jmsPropertyConfig/><con:wsaConfig mustUnderstand="NONE" version="200508"/><con:wsrmConfig version="1.2"/></con:request></con:config></con:testStep><con:testStep type="request" name="processOrder4"><con:settings/><con:config xsi:type="con:RequestStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><con:interface>ProcessOrderSoapBinding</con:interface><con:operation>processOrder</con:operation><con:request name="processOrder4"><con:settings><con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting></con:settings><con:encoding>UTF-8</con:encoding><con:endpoint>http://localhost:1081/orders</con:endpoint><con:request><![CDATA[<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:ord="http://orderprocessing.demo.mulesoft.com/">
+   <soapenv:Header/>
+   <soapenv:Body>
+      <ord:processOrder>
+         <order>
+            <orderId>0002023</orderId>
+            <customer>
+               <city>St Louis</city>
+               <firstName>Simon</firstName>
+               <lastName>Greenberg</lastName>
+               <state>IL</state>
+            </customer>
+            <item>
+               <listPrice>80</listPrice>
+               <name>Sony USB Wireless Adaptor</name>
+               <productId>SONY-USB-WA-0023</productId>
+               <quantity>50</quantity>
+            </item>
+         </order>
+      </ord:processOrder>
+   </soapenv:Body>
+</soapenv:Envelope>]]></con:request><con:assertion type="SOAP Response"/><con:jmsConfig JMSDeliveryMode="PERSISTENT"/><con:jmsPropertyConfig/><con:wsaConfig mustUnderstand="NONE" version="200508"/><con:wsrmConfig version="1.2"/></con:request></con:config></con:testStep><con:testStep type="request" name="processOrder5"><con:settings/><con:config xsi:type="con:RequestStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><con:interface>ProcessOrderSoapBinding</con:interface><con:operation>processOrder</con:operation><con:request name="processOrder5"><con:settings><con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting></con:settings><con:encoding>UTF-8</con:encoding><con:endpoint>http://localhost:1081/orders</con:endpoint><con:request><![CDATA[<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:ord="http://orderprocessing.demo.mulesoft.com/">
+   <soapenv:Header/>
+   <soapenv:Body>
+      <ord:processOrder>
+         <order>
+            <orderId>0002024</orderId>
+            <customer>
+               <city>St Louis</city>
+               <firstName>Matt</firstName>
+               <lastName>Lardiere</lastName>
+               <state>IL</state>
+            </customer>
+            <item>
+               <listPrice>80</listPrice>
+               <name>Sony USB Wireless Adaptor</name>
+               <productId>SONY-USB-WA-0023</productId>
+               <quantity>500</quantity>
+            </item>
+         </order>
+      </ord:processOrder>
+   </soapenv:Body>
+</soapenv:Envelope>]]></con:request><con:assertion type="SOAP Response"/><con:jmsConfig JMSDeliveryMode="PERSISTENT"/><con:jmsPropertyConfig/><con:wsaConfig mustUnderstand="NONE" version="200508"/><con:wsrmConfig version="1.2"/></con:request></con:config></con:testStep><con:testStep type="request" name="processOrder6"><con:settings/><con:config xsi:type="con:RequestStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><con:interface>ProcessOrderSoapBinding</con:interface><con:operation>processOrder</con:operation><con:request name="processOrder6"><con:settings><con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting></con:settings><con:encoding>UTF-8</con:encoding><con:endpoint>http://localhost:1081/orders</con:endpoint><con:request><![CDATA[<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:ord="http://orderprocessing.demo.mulesoft.com/">
+   <soapenv:Header/>
+   <soapenv:Body>
+      <ord:processOrder>
+         <order>
+            <orderId>0002025</orderId>
+            <customer>
+               <city>New York</city>
+               <firstName>Paul</firstName>
+               <lastName>Richardson</lastName>
+               <state>NY</state>
+            </customer>
+            <item>
+               <listPrice>80</listPrice>
+               <name>Sony USB Wireless Adaptor</name>
+               <productId>SONY-USB-WA-0023</productId>
+               <quantity>20</quantity>
+            </item>
+         </order>
+      </ord:processOrder>
+   </soapenv:Body>
+</soapenv:Envelope>]]></con:request><con:assertion type="SOAP Response"/><con:jmsConfig JMSDeliveryMode="PERSISTENT"/><con:jmsPropertyConfig/><con:wsaConfig mustUnderstand="NONE" version="200508"/><con:wsrmConfig version="1.2"/></con:request></con:config></con:testStep><con:testStep type="request" name="processOrder7"><con:settings/><con:config xsi:type="con:RequestStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><con:interface>ProcessOrderSoapBinding</con:interface><con:operation>processOrder</con:operation><con:request name="processOrder7"><con:settings><con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting></con:settings><con:encoding>UTF-8</con:encoding><con:endpoint>http://localhost:1081/orders</con:endpoint><con:request><![CDATA[<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:ord="http://orderprocessing.demo.mulesoft.com/">
+   <soapenv:Header/>
+   <soapenv:Body>
+      <ord:processOrder>
+         <order>
+            <orderId>0002026</orderId>
+            <customer>
+               <city>New York</city>
+               <firstName>Erik</firstName>
+               <lastName>Diephouse</lastName>
+               <state>NY</state>
+            </customer>
+            <item>
+               <listPrice>80</listPrice>
+               <name>Sony USB Wireless Adaptor</name>
+               <productId>SONY-USB-WA-0023</productId>
+               <quantity>200</quantity>
+            </item>
+         </order>
+      </ord:processOrder>
+   </soapenv:Body>
+</soapenv:Envelope>]]></con:request><con:assertion type="SOAP Response"/><con:jmsConfig JMSDeliveryMode="PERSISTENT"/><con:jmsPropertyConfig/><con:wsaConfig mustUnderstand="NONE" version="200508"/><con:wsrmConfig version="1.2"/></con:request></con:config></con:testStep><con:testStep type="request" name="processOrder9"><con:settings/><con:config xsi:type="con:RequestStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><con:interface>ProcessOrderSoapBinding</con:interface><con:operation>processOrder</con:operation><con:request name="processOrder9"><con:settings><con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting></con:settings><con:encoding>UTF-8</con:encoding><con:endpoint>http://localhost:1081/orders</con:endpoint><con:request><![CDATA[<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:ord="http://orderprocessing.demo.mulesoft.com/">
+   <soapenv:Header/>
+   <soapenv:Body>
+      <ord:processOrder>
+         <order>
+            <orderId>0002028</orderId>
+            <customer>
+               <city>San Francisco</city>
+               <firstName>Lisa</firstName>
+               <lastName>Cady</lastName>
+               <state>CA</state>
+            </customer>
+            <item>
+               <listPrice>80</listPrice>
+               <name>Sony USB Wireless Adaptor</name>
+               <productId>SONY-USB-WA-0023</productId>
+               <quantity>10</quantity>
+            </item>
+         </order>
+      </ord:processOrder>
+   </soapenv:Body>
+</soapenv:Envelope>]]></con:request><con:assertion type="SOAP Response"/><con:jmsConfig JMSDeliveryMode="PERSISTENT"/><con:jmsPropertyConfig/><con:wsaConfig mustUnderstand="NONE" version="200508"/><con:wsrmConfig version="1.2"/></con:request></con:config></con:testStep><con:testStep type="request" name="processOrder8"><con:settings/><con:config xsi:type="con:RequestStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><con:interface>ProcessOrderSoapBinding</con:interface><con:operation>processOrder</con:operation><con:request name="processOrder8"><con:settings><con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting></con:settings><con:encoding>UTF-8</con:encoding><con:endpoint>http://localhost:1081/orders</con:endpoint><con:request><![CDATA[<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:ord="http://orderprocessing.demo.mulesoft.com/">
+   <soapenv:Header/>
+   <soapenv:Body>
+      <ord:processOrder>
+         <order>
+            <orderId>0002027</orderId>
+            <customer>
+               <city>New York</city>
+               <firstName>Albin</firstName>
+               <lastName>Berhman</lastName>
+               <state>NY</state>
+            </customer>
+            <item>
+               <listPrice>80</listPrice>
+               <name>Sony USB Wireless Adaptor</name>
+               <productId>SONY-USB-WA-0023</productId>
+               <quantity>205</quantity>
+            </item>
+         </order>
+      </ord:processOrder>
+   </soapenv:Body>
+</soapenv:Envelope>]]></con:request><con:assertion type="SOAP Response"/><con:jmsConfig JMSDeliveryMode="PERSISTENT"/><con:jmsPropertyConfig/><con:wsaConfig mustUnderstand="NONE" version="200508"/><con:wsrmConfig version="1.2"/></con:request></con:config></con:testStep><con:testStep type="request" name="processOrder10"><con:settings/><con:config xsi:type="con:RequestStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><con:interface>ProcessOrderSoapBinding</con:interface><con:operation>processOrder</con:operation><con:request name="processOrder10"><con:settings><con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting></con:settings><con:encoding>UTF-8</con:encoding><con:endpoint>http://localhost:1081/orders</con:endpoint><con:request><![CDATA[<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:ord="http://orderprocessing.demo.mulesoft.com/">
+   <soapenv:Header/>
+   <soapenv:Body>
+      <ord:processOrder>
+         <order>
+            <orderId>0002029</orderId>
+            <customer>
+               <city>San Francisco</city>
+               <firstName>Richard</firstName>
+               <lastName>Mack</lastName>
+               <state>CA</state>
+            </customer>
+            <item>
+               <listPrice>80</listPrice>
+               <name>Sony USB Wireless Adaptor</name>
+               <productId>SONY-USB-WA-0023</productId>
+               <quantity>1100</quantity>
+            </item>
+         </order>
+      </ord:processOrder>
+   </soapenv:Body>
+</soapenv:Envelope>]]></con:request><con:assertion type="SOAP Response"/><con:jmsConfig JMSDeliveryMode="PERSISTENT"/><con:jmsPropertyConfig/><con:wsaConfig mustUnderstand="NONE" version="200508"/><con:wsrmConfig version="1.2"/></con:request></con:config></con:testStep><con:loadTest name="LoadTest 1"><con:settings/><con:threadCount>30</con:threadCount><con:startDelay>0</con:startDelay><con:sampleInterval>250</con:sampleInterval><con:calculateTPSOnTimePassed>true</con:calculateTPSOnTimePassed><con:resetStatisticsOnThreadCountChange>true</con:resetStatisticsOnThreadCountChange><con:historyLimit>-1</con:historyLimit><con:testLimit>60</con:testLimit><con:limitType>TIME</con:limitType><con:loadStrategy><con:type>Simple</con:type><con:config><testDelay>5</testDelay><randomFactor>0.5</randomFactor></con:config></con:loadStrategy><con:assertion type="Step Status" name="Step Status"/><con:maxAssertionErrors>100</con:maxAssertionErrors><con:cancelExcessiveThreads>true</con:cancelExcessiveThreads><con:strategyInterval>500</con:strategyInterval></con:loadTest><con:properties/></con:testCase><con:properties/></con:testSuite><con:properties/><con:wssContainer/></con:soapui-project>
