@@ -1,33 +1,44 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<mule xmlns="http://www.mulesoft.org/schema/mule/core" xmlns:http="http://www.mulesoft.org/schema/mule/http" xmlns:cxf="http://www.mulesoft.org/schema/mule/cxf" xmlns:salesforce="http://www.mulesoft.org/schema/mule/sfdc" xmlns:doc="http://www.mulesoft.org/schema/mule/documentation" xmlns:spring="http://www.springframework.org/schema/beans" xmlns:core="http://www.mulesoft.org/schema/mule/core" xmlns:tcp="http://www.mulesoft.org/schema/mule/tcp" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="
+<mule xmlns:sfdc="http://www.mulesoft.org/schema/mule/sfdc" xmlns:tracking="http://www.mulesoft.org/schema/mule/ee/tracking" xmlns="http://www.mulesoft.org/schema/mule/core" xmlns:http="http://www.mulesoft.org/schema/mule/http" xmlns:cxf="http://www.mulesoft.org/schema/mule/cxf" xmlns:salesforce="http://www.mulesoft.org/schema/mule/sfdc" xmlns:doc="http://www.mulesoft.org/schema/mule/documentation" xmlns:spring="http://www.springframework.org/schema/beans" xmlns:core="http://www.mulesoft.org/schema/mule/core" xmlns:tcp="http://www.mulesoft.org/schema/mule/tcp" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="
 http://www.mulesoft.org/schema/mule/http http://www.mulesoft.org/schema/mule/http/current/mule-http.xsd 
 http://www.mulesoft.org/schema/mule/cxf http://www.mulesoft.org/schema/mule/cxf/current/mule-cxf.xsd 
-http://www.mulesoft.org/schema/mule/sfdc http://www.mulesoft.org/schema/mule/sfdc/4.0/mule-sfdc.xsd 
-http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-3.0.xsd 
+http://www.mulesoft.org/schema/mule/ee/tracking http://www.mulesoft.org/schema/mule/ee/tracking/current/mule-tracking-ee.xsd 
+http://www.mulesoft.org/schema/mule/sfdc http://www.mulesoft.org/schema/mule/sfdc/5.0/mule-sfdc.xsd 
+http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-current.xsd 
 http://www.mulesoft.org/schema/mule/core http://www.mulesoft.org/schema/mule/core/current/mule.xsd 
-http://www.mulesoft.org/schema/mule/tcp http://www.mulesoft.org/schema/mule/tcp/3.1/mule-tcp.xsd ">
-    <salesforce:config name="sfconfig" username="david.eason@mulesource.com" password="Dre01man" securityToken="cCp7On1nkkctoKRyZhiYhYrjc" proxyPort="80" doc:name="Salesforce"/>
+http://www.mulesoft.org/schema/mule/sfdc http://www.mulesoft.org/schema/mule/sfdc/5.0/mule-sfdc.xsd 
+http://www.mulesoft.org/schema/mule/tcp http://www.mulesoft.org/schema/mule/tcp/3.1/mule-tcp.xsd " version="EE-3.3.2">
+    <sfdc:config name="sfconfig" username="david.eason@mulesource.com" password="Dre01man" securityToken="cCp7On1nkkctoKRyZhiYhYrjc"  doc:name="Salesforce"/>
     <flow name="order_management" doc:name="order_management">
         <http:inbound-endpoint exchange-pattern="request-response" host="localhost" port="${http.port}" path="orders" doc:name="HTTP" doc:description="Process HTTP request for web service."/>
-        <cxf:jaxws-service serviceClass="org.ordermgmt.ProcessOrderImpl" doc:name="SOAP" doc:description="Uses CXF to create a JAX-WS web service for processing orders."/>
-        <component class="org.ordermgmt.ProcessOrderImpl" doc:name="Summary" doc:description="Creates a summary of the order contents."/>
+        <cxf:jaxws-service serviceClass="com.mulesoft.demo.orderprocessing.ProcessOrderImpl" doc:name="SOAP" doc:description="Uses CXF to create a JAX-WS web service for processing orders."/>
+        <component class="com.mulesoft.demo.orderprocessing.ProcessOrderImpl" doc:name="Process Order Summary"/>
+        <logger message="Order Processed, OrderId = #[message.payload.getOrderId()]" level="INFO" doc:name="Log OrderId"/>
         <choice doc:name="Choice">
-            <when expression="totalListPrice &gt; 3000" evaluator="ognl">
+            <when expression="payload.totalListPrice &gt; 3000" evaluator="groovy">
                 <processor-chain>
-                    <component class="org.ordermgmt.ThirtyPercentDiscount" doc:name="30% Discount" doc:description="Use a 30% discount."/>
+                    <component class="com.mulesoft.demo.orderprocessing.ThirtyPercentDiscount" doc:name="30% Discount" doc:description="Use a 30% discount."/>
                 </processor-chain>
             </when>
-            <when expression="totalListPrice &gt; 500" evaluator="ognl">
+            <when expression="payload.totalListPrice &gt; 500" evaluator="groovy">
                 <processor-chain>
-                    <component class="org.ordermgmt.TwentyPercentDiscount" doc:name="20% Discount" doc:description="Use a 20% discount."/>
+                    <component class="com.mulesoft.demo.orderprocessing.TwentyPercentDiscount" doc:name="20% Discount" doc:description="Use a 20% discount."/>
                 </processor-chain>
             </when>
-            <when expression="totalListPrice &lt; 500" evaluator="ognl">
+            <otherwise>
                 <processor-chain>
-                    <component class="org.ordermgmt.TenPercentDiscount" doc:name="10% Discount" doc:description="Use a 10% discount."/>
+                    <component class="com.mulesoft.demo.orderprocessing.TenPercentDiscount" doc:name="10% Discount" doc:description="Use a 10% discount."/>
                 </processor-chain>
-            </when>
+            </otherwise>
         </choice>
+        <tracking:custom-event event-name="Order Summary" doc:name="Audit Event">
+            <tracking:meta-data key="Order_Id" value="#[message.payload.getOrderId()]"/>
+            <tracking:meta-data key="Item_Count" value="#[message.payload.getItemCount()]"/>
+            <tracking:meta-data key="Discount_Percentage" value="#[message.payload.getDiscountPercentage()]"/>
+        </tracking:custom-event>
+        <catch-exception-strategy doc:name="Catch Exception Strategy">
+            <logger message="An exception has occurred while processing your order" level="ERROR" doc:name="Log exception details"/>
+        </catch-exception-strategy>
     </flow>
 </mule>

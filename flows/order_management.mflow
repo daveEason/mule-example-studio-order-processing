@@ -1,152 +1,294 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 <mule-configuration xmlns="http://www.mulesoft.com/tooling/messageflow" name="order_management">
-    <global-element type="http://www.mulesoft.org/schema/mule/sfdc/config" name="Salesforce" entity-id="549f5057-50d5-42f1-b6eb-d3b4ca56984e">
+    <global-element type="http://www.mulesoft.org/schema/mule/sfdc/config" name="Salesforce" entity-id="Salesforce#1">
         <properties>
-            <property value="" name="proxyUsername"/>
-            <property value="david.eason@mulesource.com" name="username"/>
-            <property value="" name="proxyHost"/>
-            <property value="cCp7On1nkkctoKRyZhiYhYrjc" name="securityToken"/>
             <property value="sfconfig" name="name"/>
-            <property value="80" name="proxyPort"/>
+            <property value="1" name="auxiliary;index"/>
+            <property value="david.eason@mulesource.com" name="username"/>
             <property value="Dre01man" name="password"/>
-            <property value="https://login.salesforce.com/services/Soap/u/23.0" name="url"/>
-            <property value="" name="proxyPassword"/>
+            <property value="cCp7On1nkkctoKRyZhiYhYrjc" name="securityToken"/>
+            <property name="url"/>
+            <property name="proxyHost"/>
+            <property name="proxyPort"/>
+            <property name="proxyUsername"/>
+            <property name="proxyPassword"/>
+            <property value="1" name="auxiliary;index"/>
+            <property name="timeObjectStore-ref"/>
+            <property name="assignmentRuleId"/>
+            <property name="clientId"/>
+            <property name="allowFieldTruncationSupport"/>
+            <property name="useDefaultRule"/>
+            <property value="1" name="auxiliary;index"/>
+            <property value="1" name="auxiliary;index"/>
+            <property value="1" name="auxiliary;index"/>
+            <property value="1" name="auxiliary;index"/>
+            <property value="1" name="auxiliary;index"/>
+            <property value="1" name="auxiliary;index"/>
+            <property value="1" name="auxiliary;index"/>
         </properties>
-        <description></description>
     </global-element>
-    <flow isSubflow="false" name="order_management">
+    <flow SubFlow="false" name="order_management" entity-id="781e81c1-d094-4ede-97ed-95833b94eabb">
         <properties>
             <property name="processingStrategy2"/>
             <property name="processingStrategy"/>
+            <property value="2" name="auxiliary;index"/>
+            <property name="bussinessEventsLabel"/>
+            <property name="tracking:enable-default-events"/>
+            <property value="2" name="auxiliary;index"/>
+            <property value="2" name="auxiliary;index"/>
+            <property value="2" name="auxiliary;index"/>
         </properties>
-        <lane entity-id="b9be8003-e7e8-431e-ab66-65ed9ccf54d2">
-            <endpoint message-exchange-pattern="RequestResponse" direction="Inbound" type="http://www.mulesoft.org/schema/mule/https/endpoint" name="HTTP" entity-id="1e391b0c-88fc-49b0-93da-57a1032fbb1b">
+        <lane isChoiceOtherwiseLane="false" index="0" hadOnlyOneElement="false" entity-id="compartment-lane#1">
+            <endpoint message-exchange-pattern="OneWay" direction="Inbound" type="http://www.mulesoft.org/schema/mule/http/endpoint" name="HTTP" entity-id="HTTP#1">
                 <properties>
+                    <property value="one-way" name="exchange-pattern"/>
                     <property value="request-response" name="exchange-pattern"/>
-                    <property value="request-response" name="exchange-pattern"/>
-                    <property value="localhost" name="host"/>
-                    <property value="${http.port}" name="port"/>
-                    <property name="user"/>
-                    <property name="password"/>
-                    <property value="orders" name="path"/>
-                    <property name="method"/>
-                    <property name="contentType"/>
-                    <property name="keep-alive"/>
-                    <property name="address"/>
-                    <property name="responseTimeout"/>
-                    <property name="encoding"/>
-                    <property name="disableTransportTransformer"/>
-                    <property name="mimeType"/>
-                    <property name="followRedirects"/>
-                    <property name="ref"/>
-                    <property name="connector-ref"/>
-                    <property name="transformer-refs"/>
-                    <property name="responseTransformer-refs"/>
+                    <property value="3" name="auxiliary;index"/>
                     <property value="http://www.mulesoft.org/schema/mule/http/endpoint" name="org.mule.tooling.ui.modules.core.widgets.meta.ModeAttribute"/>
-                    <property value="request-response" name="exchange-pattern"/>
+                    <property value="3" name="auxiliary;index"/>
+                    <property name="httpLabel"/>
                     <property value="localhost" name="host"/>
                     <property value="${http.port}" name="port"/>
-                    <property name="user"/>
-                    <property name="password"/>
                     <property value="orders" name="path"/>
                     <property name="method"/>
-                    <property name="contentType"/>
-                    <property name="keep-alive"/>
+                    <property value="3" name="auxiliary;index"/>
+                    <property value="3" name="auxiliary;index"/>
+                    <property name="businessEventsLabel"/>
+                    <property name="tracking:enable-default-events"/>
+                    <property value="3" name="auxiliary;index"/>
                     <property name="address"/>
-                    <property name="responseTimeout"/>
                     <property name="encoding"/>
                     <property name="disableTransportTransformer"/>
                     <property name="mimeType"/>
+                    <property name="responseTimeout"/>
                     <property name="followRedirects"/>
-                    <property name="ref"/>
+                    <property value="3" name="auxiliary;index"/>
+                    <property value="3" name="auxiliary;index"/>
+                    <property value="3" name="auxiliary;index"/>
                     <property name="connector-ref"/>
+                    <property name="ref"/>
                     <property name="transformer-refs"/>
                     <property name="responseTransformer-refs"/>
+                    <property value="3" name="auxiliary;index"/>
+                    <property value="3" name="auxiliary;index"/>
+                    <property name="user"/>
+                    <property name="password"/>
+                    <property value="3" name="auxiliary;index"/>
+                    <property name="contentType"/>
+                    <property name="keep-alive"/>
+                    <property value="3" name="auxiliary;index"/>
+                    <property value="3" name="auxiliary;index"/>
+                    <property value="3" name="auxiliary;index"/>
                 </properties>
                 <description>Process HTTP request for web service.</description>
             </endpoint>
-            <pattern type="http://www.mulesoft.org/schema/mule/cxf/soapComponent" name="SOAP" entity-id="a11b1c58-5b3b-4a95-8282-4e3b230a40a5">
+            <pattern type="http://www.mulesoft.org/schema/mule/cxf/soapComponent" name="SOAP" entity-id="SOAP#1">
                 <properties>
-                    <property name="config-ref"/>
+                    <property name="configuration-ref"/>
                     <property value="http://www.mulesoft.org/schema/mule/cxf/jaxws-service" name="org.mule.tooling.ui.modules.core.widgets.meta.ModeAttribute"/>
-                    <property name="config-ref"/>
+                    <property name="configuration-ref"/>
+                    <property value="4" name="auxiliary;index"/>
                     <property name="bindingId"/>
                     <property name="port"/>
                     <property name="namespace"/>
                     <property name="service"/>
-                    <property value="org.ordermgmt.ProcessOrderImpl" name="serviceClass"/>
+                    <property name="onException"/>
+                    <property value="com.mulesoft.demo.orderprocessing.ProcessOrderImpl" name="serviceClass"/>
                     <property name="validationEnabled"/>
+                    <property value="4" name="auxiliary;index"/>
+                    <property value="4" name="auxiliary;index"/>
+                    <property value="4" name="auxiliary;index"/>
+                    <property value="4" name="auxiliary;index"/>
+                    <property value="4" name="auxiliary;index"/>
+                    <property value="4" name="auxiliary;index"/>
                     <property name="mtomEnabled"/>
                     <property name="wsdlLocation"/>
-                    <property name="configuration-ref"/>
                     <property name="enableMuleSoapHeaders"/>
+                    <property value="4" name="auxiliary;index"/>
+                    <property value="4" name="auxiliary;index"/>
+                    <property value="4" name="auxiliary;index"/>
+                    <property value="4" name="auxiliary;index"/>
+                    <property value="4" name="auxiliary;index"/>
+                    <property value="4" name="auxiliary;index"/>
+                    <property value="4" name="auxiliary;index"/>
+                    <property value="4" name="auxiliary;index"/>
+                    <property value="4" name="auxiliary;index"/>
+                    <property value="4" name="auxiliary;index"/>
+                    <property value="4" name="auxiliary;index"/>
+                    <property value="4" name="auxiliary;index"/>
+                    <property value="4" name="auxiliary;index"/>
                 </properties>
                 <description>Uses CXF to create a JAX-WS web service for processing orders.</description>
             </pattern>
-            <pattern type="http://www.mulesoft.org/schema/mule/core/component" name="Summary" entity-id="9c500bf7-233a-4cfb-8c43-4391cd5fabfc">
+            <pattern type="http://www.mulesoft.org/schema/mule/core/component" name="Process Order Summary" entity-id="Java#1">
                 <properties>
-                    <property value="org.ordermgmt.ProcessOrderImpl" name="class"/>
+                    <property value="5" name="auxiliary;index"/>
+                    <property value="5" name="auxiliary;index"/>
+                    <property value="5" name="auxiliary;index"/>
+                    <property value="com.mulesoft.demo.orderprocessing.ProcessOrderImpl" name="class"/>
+                    <property value="5" name="auxiliary;index"/>
+                    <property value="5" name="auxiliary;index"/>
+                    <property value="5" name="auxiliary;index"/>
                 </properties>
-                <description>Creates a summary of the order contents.</description>
             </pattern>
-            <splitter name="Choice" entity-id="a3ba650c-02da-4f0a-a35c-e9d6bc00652e">
+            <pattern type="http://www.mulesoft.org/schema/mule/core/logger" name="Log OrderId" entity-id="Logger#1">
                 <properties>
-                    <property-collection name="c4800442-859d-4284-97db-20461c69ecff">
-                        <property value="totalListPrice &gt; 3000" name="choice.expression"/>
-                        <property value="ognl" name="choice.evaluator"/>
+                    <property value="Order Processed, OrderId = #[message.payload.getOrderId()]" name="message"/>
+                    <property value="INFO" name="level"/>
+                    <property name="category"/>
+                    <property value="6" name="auxiliary;index"/>
+                    <property value="6" name="auxiliary;index"/>
+                    <property value="6" name="auxiliary;index"/>
+                </properties>
+            </pattern>
+            <splitter index="7" type="org.mule.tooling.ui.modules.core.pattern.cbr" name="Choice" entity-id="Choice#1">
+                <properties>
+                    <property value="false" name="tracking:enable-default-events"/>
+                    <property name="updated"/>
+                    <property value="7" name=";INDEX"/>
+                    <property-collection name="12fb83d8-5a5a-4f68-85c5-c3f5aa817de1">
+                        <property value="true" name="choice.otherwise"/>
+                        <property value="" name="choice.expression"/>
+                        <property-collection name="choice.attributes"/>
                     </property-collection>
-                    <property-collection name="38221071-69a6-4d0e-a383-97815859769c">
-                        <property value="totalListPrice &gt; 500" name="choice.expression"/>
-                        <property value="ognl" name="choice.evaluator"/>
+                    <property-collection name="8c5e2303-08bf-464b-b3d3-e08ddc477e5f">
+                        <property value="payload.totalListPrice &gt; 500" name="choice.expression"/>
+                        <property-collection name="choice.attributes">
+                            <property value="payload.totalListPrice &gt; 500" name="expression"/>
+                            <property value="groovy" name="evaluator"/>
+                        </property-collection>
                     </property-collection>
-                    <property-collection name="17bf461c-f782-4c9f-b882-8e33ea3ea439">
-                        <property value="totalListPrice &lt; 500" name="choice.expression"/>
-                        <property value="ognl" name="choice.evaluator"/>
+                    <property-collection name="4313c0d4-ee43-4ce1-b57b-1242a73e4c7c">
+                        <property value="payload.totalListPrice &gt; 3000" name="choice.expression"/>
+                        <property-collection name="choice.attributes">
+                            <property value="payload.totalListPrice &gt; 3000" name="expression"/>
+                            <property value="groovy" name="evaluator"/>
+                        </property-collection>
                     </property-collection>
                 </properties>
-                <pattern type="org.mule.tooling.ui.modules.core.pattern.cbr" name="Choice" entity-id="e1bc56b4-8a80-4c00-901b-fc80ce4ccada">
+                <description></description>
+                <pattern type="org.mule.tooling.ui.modules.core.pattern.cbr" name="Choice" entity-id="Choice#2">
                     <properties>
-                        <property-collection name="c4800442-859d-4284-97db-20461c69ecff">
-                            <property value="totalListPrice &gt; 3000" name="choice.expression"/>
-                            <property value="ognl" name="choice.evaluator"/>
+                        <property value="false" name="tracking:enable-default-events"/>
+                        <property name="updated"/>
+                        <property value="7" name=";INDEX"/>
+                        <property-collection name="12fb83d8-5a5a-4f68-85c5-c3f5aa817de1">
+                            <property value="true" name="choice.otherwise"/>
+                            <property value="" name="choice.expression"/>
+                            <property-collection name="choice.attributes"/>
                         </property-collection>
-                        <property-collection name="38221071-69a6-4d0e-a383-97815859769c">
-                            <property value="totalListPrice &gt; 500" name="choice.expression"/>
-                            <property value="ognl" name="choice.evaluator"/>
+                        <property-collection name="8c5e2303-08bf-464b-b3d3-e08ddc477e5f">
+                            <property value="payload.totalListPrice &gt; 500" name="choice.expression"/>
+                            <property-collection name="choice.attributes">
+<property value="payload.totalListPrice &gt; 500" name="expression"/>
+<property value="groovy" name="evaluator"/>
+                            </property-collection>
                         </property-collection>
-                        <property-collection name="17bf461c-f782-4c9f-b882-8e33ea3ea439">
-                            <property value="totalListPrice &lt; 500" name="choice.expression"/>
-                            <property value="ognl" name="choice.evaluator"/>
+                        <property-collection name="4313c0d4-ee43-4ce1-b57b-1242a73e4c7c">
+                            <property value="payload.totalListPrice &gt; 3000" name="choice.expression"/>
+                            <property-collection name="choice.attributes">
+<property value="payload.totalListPrice &gt; 3000" name="expression"/>
+<property value="groovy" name="evaluator"/>
+                            </property-collection>
                         </property-collection>
                     </properties>
+                    <description></description>
                 </pattern>
-                <compartment entity-id="ad00297b-9f05-40cd-beab-887c0ca26ca9">
-                    <lane entity-id="c4800442-859d-4284-97db-20461c69ecff">
-                        <pattern type="http://www.mulesoft.org/schema/mule/core/component" name="30% Discount" entity-id="5e41d3b4-6c27-4a8c-bc91-3ce809393c84">
+                <compartment entity-id="compartment#1">
+                    <lane isChoiceOtherwiseLane="false" index="9" hadOnlyOneElement="false" entity-id="4313c0d4-ee43-4ce1-b57b-1242a73e4c7c">
+                        <pattern type="http://www.mulesoft.org/schema/mule/core/component" name="30% Discount" entity-id="Java#2">
                             <properties>
-<property value="org.ordermgmt.ThirtyPercentDiscount" name="class"/>
+<property value="10" name="auxiliary;index"/>
+<property value="10" name="auxiliary;index"/>
+<property value="10" name="auxiliary;index"/>
+<property value="com.mulesoft.demo.orderprocessing.ThirtyPercentDiscount" name="class"/>
+<property value="10" name="auxiliary;index"/>
+<property value="10" name="auxiliary;index"/>
+<property value="10" name="auxiliary;index"/>
                             </properties>
                             <description>Use a 30% discount.</description>
                         </pattern>
                     </lane>
-                    <lane entity-id="38221071-69a6-4d0e-a383-97815859769c">
-                        <pattern type="http://www.mulesoft.org/schema/mule/core/component" name="20% Discount" entity-id="cb9be10b-a39f-46a0-90f1-2839f1eacabf">
+                    <lane isChoiceOtherwiseLane="false" index="12" hadOnlyOneElement="false" entity-id="8c5e2303-08bf-464b-b3d3-e08ddc477e5f">
+                        <pattern type="http://www.mulesoft.org/schema/mule/core/component" name="20% Discount" entity-id="Java#3">
                             <properties>
-<property value="org.ordermgmt.TwentyPercentDiscount" name="class"/>
+<property value="13" name="auxiliary;index"/>
+<property value="13" name="auxiliary;index"/>
+<property value="13" name="auxiliary;index"/>
+<property value="com.mulesoft.demo.orderprocessing.TwentyPercentDiscount" name="class"/>
+<property value="13" name="auxiliary;index"/>
+<property value="13" name="auxiliary;index"/>
+<property value="13" name="auxiliary;index"/>
                             </properties>
                             <description>Use a 20% discount.</description>
                         </pattern>
                     </lane>
-                    <lane entity-id="17bf461c-f782-4c9f-b882-8e33ea3ea439">
-                        <pattern type="http://www.mulesoft.org/schema/mule/core/component" name="10% Discount" entity-id="08b80295-a002-47b0-bc0e-340f7ed15afa">
+                    <lane isChoiceOtherwiseLane="true" index="15" hadOnlyOneElement="false" entity-id="12fb83d8-5a5a-4f68-85c5-c3f5aa817de1">
+                        <pattern type="http://www.mulesoft.org/schema/mule/core/component" name="10% Discount" entity-id="Java#4">
                             <properties>
-<property value="org.ordermgmt.TenPercentDiscount" name="class"/>
+<property value="16" name="auxiliary;index"/>
+<property value="16" name="auxiliary;index"/>
+<property value="16" name="auxiliary;index"/>
+<property value="com.mulesoft.demo.orderprocessing.TenPercentDiscount" name="class"/>
+<property value="16" name="auxiliary;index"/>
+<property value="16" name="auxiliary;index"/>
+<property value="16" name="auxiliary;index"/>
                             </properties>
                             <description>Use a 10% discount.</description>
                         </pattern>
                     </lane>
                 </compartment>
             </splitter>
+            <pattern type="http://www.mulesoft.org/schema/mule/ee/tracking/custom-event" name="Audit Event" entity-id="Custom business event#1">
+                <properties>
+                    <property value="Order Summary" name="event-name"/>
+                    <property value="17" name="auxiliary;index"/>
+                    <property value="17" name="auxiliary;index"/>
+                    <property value="17" name="auxiliary;index"/>
+                    <property-collection name="@http://www.mulesoft.org/schema/mule/ee/tracking/meta-data;0">
+                        <property value="#[message.payload.getOrderId()]" name="value"/>
+                        <property value="18" name="auxiliary;wrapIn"/>
+                        <property value="18" name="auxiliary;index"/>
+                        <property value="Order_Id" name="key"/>
+                    </property-collection>
+                    <property-collection name="@http://www.mulesoft.org/schema/mule/ee/tracking/meta-data;1">
+                        <property value="#[message.payload.getItemCount()]" name="value"/>
+                        <property value="19" name="auxiliary;wrapIn"/>
+                        <property value="19" name="auxiliary;index"/>
+                        <property value="Item_Count" name="key"/>
+                    </property-collection>
+                    <property-collection name="@http://www.mulesoft.org/schema/mule/ee/tracking/meta-data;2">
+                        <property value="#[message.payload.getDiscountPercentage()]" name="value"/>
+                        <property value="20" name="auxiliary;wrapIn"/>
+                        <property value="20" name="auxiliary;index"/>
+                        <property value="Discount_Percentage" name="key"/>
+                    </property-collection>
+                </properties>
+            </pattern>
+            <scope type="http://www.mulesoft.org/schema/mule/core/catch-exception-strategy" name="Catch Exception Strategy" entity-id="Catch Exception Strategy#1">
+                <properties>
+                    <property name="labelConfigureConditionalExecutionUsingExpression"/>
+                    <property name="when"/>
+                    <property name="enableNotifications"/>
+                    <property value="21" name="auxiliary;index"/>
+                    <property value="21" name="auxiliary;index"/>
+                    <property value="21" name="auxiliary;index"/>
+                </properties>
+                <compartment entity-id="compartment#2">
+                    <lane isChoiceOtherwiseLane="false" index="0" hadOnlyOneElement="false" entity-id="compartment-lane#2">
+                        <pattern type="http://www.mulesoft.org/schema/mule/core/logger" name="Log exception details" entity-id="Logger#2">
+                            <properties>
+<property value="An exception has occurred while processing your order" name="message"/>
+<property value="ERROR" name="level"/>
+<property name="category"/>
+<property value="22" name="auxiliary;index"/>
+<property value="22" name="auxiliary;index"/>
+<property value="22" name="auxiliary;index"/>
+                            </properties>
+                        </pattern>
+                    </lane>
+                </compartment>
+            </scope>
         </lane>
     </flow>
 </mule-configuration>
