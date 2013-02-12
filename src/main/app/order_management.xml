@@ -32,11 +32,12 @@ http://www.mulesoft.org/schema/mule/tcp http://www.mulesoft.org/schema/mule/tcp/
                 </processor-chain>
             </otherwise>
         </choice>
-        <tracking:custom-event event-name="Order Summary" doc:name="Audit Event">
+        <tracking:custom-event event-name="Order Summary" doc:name="Order Summary">
             <tracking:meta-data key="Order_Id" value="#[message.payload.getOrderId()]"/>
             <tracking:meta-data key="Item_Count" value="#[message.payload.getItemCount()]"/>
             <tracking:meta-data key="Discount_Percentage" value="#[message.payload.getDiscountPercentage()]"/>
         </tracking:custom-event>
+        <tracking:transaction id="#[message.payload.getOrderId()]"/>
         <catch-exception-strategy doc:name="Catch Exception Strategy">
             <logger message="An exception has occurred while processing your order" level="ERROR" doc:name="Log exception details"/>
         </catch-exception-strategy>

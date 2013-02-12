@@ -27,7 +27,7 @@
             <property value="1" name="auxiliary;index"/>
         </properties>
     </global-element>
-    <flow SubFlow="false" name="order_management" entity-id="781e81c1-d094-4ede-97ed-95833b94eabb">
+    <flow SubFlow="false" name="order_management" entity-id="50f24318-83e1-447b-8124-7ec8db86b5fa">
         <properties>
             <property name="processingStrategy2"/>
             <property name="processingStrategy"/>
@@ -37,6 +37,11 @@
             <property value="2" name="auxiliary;index"/>
             <property value="2" name="auxiliary;index"/>
             <property value="2" name="auxiliary;index"/>
+            <property-collection name="@http://www.mulesoft.org/schema/mule/ee/tracking/transaction;0">
+                <property value="#[message.payload.getOrderId()]" name="id"/>
+                <property value="21" name="auxiliary;wrapIn"/>
+                <property value="21" name="auxiliary;index"/>
+            </property-collection>
         </properties>
         <lane isChoiceOtherwiseLane="false" index="0" hadOnlyOneElement="false" entity-id="compartment-lane#1">
             <endpoint message-exchange-pattern="OneWay" direction="Inbound" type="http://www.mulesoft.org/schema/mule/http/endpoint" name="HTTP" entity-id="HTTP#1">
@@ -143,22 +148,18 @@
             </pattern>
             <splitter index="7" type="org.mule.tooling.ui.modules.core.pattern.cbr" name="Choice" entity-id="Choice#1">
                 <properties>
-                    <property value="false" name="tracking:enable-default-events"/>
-                    <property name="updated"/>
-                    <property value="7" name=";INDEX"/>
-                    <property-collection name="12fb83d8-5a5a-4f68-85c5-c3f5aa817de1">
+                    <property-collection name="6545d63a-77ee-4544-8a38-78e9dec297e2">
                         <property value="true" name="choice.otherwise"/>
-                        <property value="" name="choice.expression"/>
                         <property-collection name="choice.attributes"/>
                     </property-collection>
-                    <property-collection name="8c5e2303-08bf-464b-b3d3-e08ddc477e5f">
+                    <property-collection name="97627aa0-106f-4fb7-86c9-a44a2efa12ed">
                         <property value="payload.totalListPrice &gt; 500" name="choice.expression"/>
                         <property-collection name="choice.attributes">
                             <property value="payload.totalListPrice &gt; 500" name="expression"/>
                             <property value="groovy" name="evaluator"/>
                         </property-collection>
                     </property-collection>
-                    <property-collection name="4313c0d4-ee43-4ce1-b57b-1242a73e4c7c">
+                    <property-collection name="f0c5f3ed-32f4-424d-92e9-338f9f952e2f">
                         <property value="payload.totalListPrice &gt; 3000" name="choice.expression"/>
                         <property-collection name="choice.attributes">
                             <property value="payload.totalListPrice &gt; 3000" name="expression"/>
@@ -166,36 +167,9 @@
                         </property-collection>
                     </property-collection>
                 </properties>
-                <description></description>
-                <pattern type="org.mule.tooling.ui.modules.core.pattern.cbr" name="Choice" entity-id="Choice#2">
-                    <properties>
-                        <property value="false" name="tracking:enable-default-events"/>
-                        <property name="updated"/>
-                        <property value="7" name=";INDEX"/>
-                        <property-collection name="12fb83d8-5a5a-4f68-85c5-c3f5aa817de1">
-                            <property value="true" name="choice.otherwise"/>
-                            <property value="" name="choice.expression"/>
-                            <property-collection name="choice.attributes"/>
-                        </property-collection>
-                        <property-collection name="8c5e2303-08bf-464b-b3d3-e08ddc477e5f">
-                            <property value="payload.totalListPrice &gt; 500" name="choice.expression"/>
-                            <property-collection name="choice.attributes">
-<property value="payload.totalListPrice &gt; 500" name="expression"/>
-<property value="groovy" name="evaluator"/>
-                            </property-collection>
-                        </property-collection>
-                        <property-collection name="4313c0d4-ee43-4ce1-b57b-1242a73e4c7c">
-                            <property value="payload.totalListPrice &gt; 3000" name="choice.expression"/>
-                            <property-collection name="choice.attributes">
-<property value="payload.totalListPrice &gt; 3000" name="expression"/>
-<property value="groovy" name="evaluator"/>
-                            </property-collection>
-                        </property-collection>
-                    </properties>
-                    <description></description>
-                </pattern>
+                <pattern type="org.mule.tooling.ui.modules.core.pattern.cbr" name="Choice" entity-id="Choice#2"/>
                 <compartment entity-id="compartment#1">
-                    <lane isChoiceOtherwiseLane="false" index="9" hadOnlyOneElement="false" entity-id="4313c0d4-ee43-4ce1-b57b-1242a73e4c7c">
+                    <lane isChoiceOtherwiseLane="false" index="9" hadOnlyOneElement="false" entity-id="f0c5f3ed-32f4-424d-92e9-338f9f952e2f">
                         <pattern type="http://www.mulesoft.org/schema/mule/core/component" name="30% Discount" entity-id="Java#2">
                             <properties>
 <property value="10" name="auxiliary;index"/>
@@ -209,7 +183,7 @@
                             <description>Use a 30% discount.</description>
                         </pattern>
                     </lane>
-                    <lane isChoiceOtherwiseLane="false" index="12" hadOnlyOneElement="false" entity-id="8c5e2303-08bf-464b-b3d3-e08ddc477e5f">
+                    <lane isChoiceOtherwiseLane="false" index="12" hadOnlyOneElement="false" entity-id="97627aa0-106f-4fb7-86c9-a44a2efa12ed">
                         <pattern type="http://www.mulesoft.org/schema/mule/core/component" name="20% Discount" entity-id="Java#3">
                             <properties>
 <property value="13" name="auxiliary;index"/>
@@ -223,7 +197,7 @@
                             <description>Use a 20% discount.</description>
                         </pattern>
                     </lane>
-                    <lane isChoiceOtherwiseLane="true" index="15" hadOnlyOneElement="false" entity-id="12fb83d8-5a5a-4f68-85c5-c3f5aa817de1">
+                    <lane isChoiceOtherwiseLane="true" index="15" hadOnlyOneElement="false" entity-id="6545d63a-77ee-4544-8a38-78e9dec297e2">
                         <pattern type="http://www.mulesoft.org/schema/mule/core/component" name="10% Discount" entity-id="Java#4">
                             <properties>
 <property value="16" name="auxiliary;index"/>
@@ -239,7 +213,7 @@
                     </lane>
                 </compartment>
             </splitter>
-            <pattern type="http://www.mulesoft.org/schema/mule/ee/tracking/custom-event" name="Audit Event" entity-id="Custom business event#1">
+            <pattern type="http://www.mulesoft.org/schema/mule/ee/tracking/custom-event" name="Order Summary" entity-id="Custom business event#1">
                 <properties>
                     <property value="Order Summary" name="event-name"/>
                     <property value="17" name="auxiliary;index"/>
@@ -270,9 +244,9 @@
                     <property name="labelConfigureConditionalExecutionUsingExpression"/>
                     <property name="when"/>
                     <property name="enableNotifications"/>
-                    <property value="21" name="auxiliary;index"/>
-                    <property value="21" name="auxiliary;index"/>
-                    <property value="21" name="auxiliary;index"/>
+                    <property value="22" name="auxiliary;index"/>
+                    <property value="22" name="auxiliary;index"/>
+                    <property value="22" name="auxiliary;index"/>
                 </properties>
                 <compartment entity-id="compartment#2">
                     <lane isChoiceOtherwiseLane="false" index="0" hadOnlyOneElement="false" entity-id="compartment-lane#2">
@@ -281,9 +255,9 @@
 <property value="An exception has occurred while processing your order" name="message"/>
 <property value="ERROR" name="level"/>
 <property name="category"/>
-<property value="22" name="auxiliary;index"/>
-<property value="22" name="auxiliary;index"/>
-<property value="22" name="auxiliary;index"/>
+<property value="23" name="auxiliary;index"/>
+<property value="23" name="auxiliary;index"/>
+<property value="23" name="auxiliary;index"/>
                             </properties>
                         </pattern>
                     </lane>
